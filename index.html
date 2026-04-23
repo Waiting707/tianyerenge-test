@@ -452,9 +452,15 @@
       stats.forEach((count, idx) => {
         const pct = Math.round((count / total) * 100);
         const widthPct = Math.round((count / maxCount) * 100);
-        barsHtml += `<div class="stats-row"><span class="bar-label">${PERSONALITIES[idx].name}</span><span class="bar-track"><span class="bar-fill" style="width:${widthPct}%;${idx===currentIndex?'background:linear-gradient(90deg,#8b3a1a,#c46a3a);':''}"></span></span><span class="bar-count">${pct}%</span></div>`;
+        barsHtml += `<div class="stats-row"><span class="bar-label">${PERSONALITIES[idx].name}</span><span class="bar-track"><span class="bar-fill" data-width="${widthPct}" style="width:0%;${idx===currentIndex?'background:linear-gradient(90deg,#8b3a1a,#c46a3a);':''}"></span></span><span class="bar-count">${pct}%</span></div>`;
       });
       statsBars.innerHTML = barsHtml;
+      requestAnimationFrame(() => {
+  const fills = statsBars.querySelectorAll('.bar-fill');
+  fills.forEach(fill => {
+    fill.style.width = fill.dataset.width + '%';
+  });
+});
     }
 
     const STORAGE_KEY = 'xinjiang_field_photos';
