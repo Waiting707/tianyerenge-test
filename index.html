@@ -182,7 +182,7 @@
 <div class="test-wrapper">
   <div class="music-toggle" id="musicToggle" title="播放/暂停 西域小调">🎵</div>
   <audio id="bgMusic" loop preload="auto" style="display:none;">
-    <source src="./music/kashgar_sama.mp3" type="audio/mpeg">
+    <source src="kashgar_sama.mp3" type="audio/mpeg">
     您的浏览器不支持音频播放。
   </audio>
 
@@ -274,22 +274,22 @@
     }
 
     const PERSONALITIES = [
-      { name:"卷王", en:"MUSE", desc:"逛博物馆永远最认真，别人随便打卡走马观花，自己会仔细看展、研究文物历史。", image:"./images/MUSE.png" },
-      { name:"出片者", en:"OOTD", desc:"出门旅行很注重穿搭造型，审美在线超会搭配。走到哪拍到哪，超会找角度抓氛围。", image:"./images/OOTD.png" },
-      { name:"美食家", en:"FOOD-ie", desc:"实打实的吃货选手，旅行第一目标就是吃遍当地特色。热衷于挖掘街边小店。", image:"./images/FOOD-ie.png" },
-      { name:"领导者", en:"LEAD-er", desc:"团队里的主心骨，负责规划路线、安排行程、协调所有人。遇事冷静靠谱。", image:"./images/LEAD-er.png" },
-      { name:"特种兵", en:"SPEC", desc:"体力超强的暴走选手，节奏快、耐力足。一天能打卡超多地方。", image:"./images/SPEC.png" },
-      { name:"哈密瓜羚羊", en:"CLIM-ber", desc:"90°是墙，89°就是坡。看到坡就想往上爬，陡坡峭壁都拦不住一颗攀爬的心。", image:"./images/CLIM-ber.png" },
-      { name:"摄影师", en:"PICS", desc:"随身自带拍照buff，手机相机不离手。擅长记录沿途风景、人文瞬间。", image:"./images/PICS.png" },
-      { name:"路边社牛", en:"SOCI", desc:"天生外向自来熟，在路边、市集、古城里都能随意和陌生人搭话唠嗑。", image:"./images/SOCI.png" },
-      { name:"丁丁酒鬼", en:"DRUN", desc:"白天认真赶路游玩，晚上喜欢小酌放松。偏爱微醺氛围。", image:"./images/DRUN.png" },
-      { name:"哆啦A梦", en:"DORA", desc:"行走的万能百宝袋，背包里塞满各种实用小物件。贴心又万能。", image:"./images/DORA.png" },
-      { name:"盖章收集控", en:"STAM", desc:"重度集章爱好者，走到一座城就必找各处印章，用专属仪式感收藏旅途回忆。", image:"./images/STAM.png" },
-      { name:"买买提人格", en:"BUY-er", desc:"超爱逛市集和小店，看到特色文创、手作、特产就忍不住入手。", image:"./images/BUY-er.png" },
-      { name:"毛茸茸的人", en:"WOLF", desc:"白天温柔软糯，夜晚逻辑与演技悄然上线，反差最大的可爱狼队友。", image:"./images/WOLF.png" },
-      { name:"路痴者", en:"LOST", desc:"天生方向感为零，分不清东南西北，乖乖跟着大部队走。", image:"./images/LOST.png" },
-      { name:"我都OK", en:"OKAY", desc:"脾气超好超好说话，随和又百搭，没有特殊要求。", image:"./images/OKAY.png" },
-      { name:"吟游诗人", en:"POET", desc:"自带浪漫文艺气质，心思细腻敏感，把旅途的风景都赋予温柔诗意。", image:"./images/POET.png" }
+      { name:"卷王", en:"MUSE", desc:"逛博物馆永远最认真，别人随便打卡走马观花，自己会仔细看展、研究文物历史。", image:"MUSE.png" },
+      { name:"出片者", en:"OOTD", desc:"出门旅行很注重穿搭造型，审美在线超会搭配。走到哪拍到哪，超会找角度抓氛围。", image:"OOTD.png" },
+      { name:"美食家", en:"FOOD-ie", desc:"实打实的吃货选手，旅行第一目标就是吃遍当地特色。热衷于挖掘街边小店。", image:"FOOD-ie.png" },
+      { name:"领导者", en:"LEAD-er", desc:"团队里的主心骨，负责规划路线、安排行程、协调所有人。遇事冷静靠谱。", image:"LEAD-er.png" },
+      { name:"特种兵", en:"SPEC", desc:"体力超强的暴走选手，节奏快、耐力足。一天能打卡超多地方。", image:"SPEC.png" },
+      { name:"哈密瓜羚羊", en:"CLIM-ber", desc:"90°是墙，89°就是坡。看到坡就想往上爬，陡坡峭壁都拦不住一颗攀爬的心。", image:"CLIM-ber.png" },
+      { name:"摄影师", en:"PICS", desc:"随身自带拍照buff，手机相机不离手。擅长记录沿途风景、人文瞬间。", image:"PICS.png" },
+      { name:"路边社牛", en:"SOCI", desc:"天生外向自来熟，在路边、市集、古城里都能随意和陌生人搭话唠嗑。", image:"SOCI.png" },
+      { name:"丁丁酒鬼", en:"DRUN", desc:"白天认真赶路游玩，晚上喜欢小酌放松。偏爱微醺氛围。", image:"DRUN.png" },
+      { name:"哆啦A梦", en:"DORA", desc:"行走的万能百宝袋，背包里塞满各种实用小物件。贴心又万能。", image:"DORA.png" },
+      { name:"盖章收集控", en:"STAM", desc:"重度集章爱好者，走到一座城就必找各处印章，用专属仪式感收藏旅途回忆。", image:"STAM.png" },
+      { name:"买买提人格", en:"BUY-er", desc:"超爱逛市集和小店，看到特色文创、手作、特产就忍不住入手。", image:"BUY-er.png" },
+      { name:"毛茸茸的人", en:"WOLF", desc:"白天温柔软糯，夜晚逻辑与演技悄然上线，反差最大的可爱狼队友。", image:"WOLF.png" },
+      { name:"路痴者", en:"LOST", desc:"天生方向感为零，分不清东南西北，乖乖跟着大部队走。", image:"LOST.png" },
+      { name:"我都OK", en:"OKAY", desc:"脾气超好超好说话，随和又百搭，没有特殊要求。", image:"OKAY.png" },
+      { name:"吟游诗人", en:"POET", desc:"自带浪漫文艺气质，心思细腻敏感，把旅途的风景都赋予温柔诗意。", image:"POET.png" }
     ];
 
     const KEY_MAP = { "MUSE":0, "OOTD":1, "FOOD-ie":2, "LEAD-er":3, "SPEC":4, "CLIM-ber":5, "PICS":6, "SOCI":7, "DRUN":8, "DORA":9, "STAM":10, "BUY-er":11, "WOLF":12, "LOST":13, "OKAY":14, "POET":15 };
