@@ -238,7 +238,8 @@
     <button class="restart-btn" id="restartFromResult">🌿 再测一次 · 启程</button>
     <button class="home-btn" id="backToHomeFromResult">🏠 返回主页 · 查看图鉴</button>
     <div class="credit-note">
-      <strong>制作人：雯婷</strong><br>
+      <strong>制作：雯婷</strong><br>
+      <strong>绘图：丁丁</strong><br>
       “保存测试截图 寻找丁丁解锁隐藏彩蛋” 🐫
     </div>
   </div>
@@ -495,7 +496,7 @@
     // 弹窗控制函数
     function showPersonaDetail(index) {
       const p = PERSONALITIES[index];
-      modalImage.src = p.image || '';
+      modalImage.src = (p.image || '') + '?t=' + new Date().getTime();
       modalImage.alt = p.name;
       modalName.innerText = p.name;
       modalEn.innerText = p.en;
@@ -505,6 +506,7 @@
     }
     function hidePersonaDetail() {
       personaModal.classList.remove('show');
+      modalImage.src = '';
       playClickSound();
     }
     modalCloseBtn.addEventListener('click', hidePersonaDetail);
