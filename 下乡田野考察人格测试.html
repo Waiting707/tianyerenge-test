@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>旷野手帖 · 田野人格图鉴 | 雯婷</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #f7efe2; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      font-family: 'Segoe UI', 'Roboto', 'Trebuchet MS', system-ui, sans-serif; padding: 16px;
+      background-image: radial-gradient(circle at 10% 20%, rgba(210, 150, 90, 0.08) 0%, transparent 30%),
+        radial-gradient(circle at 90% 80%, rgba(160, 100, 60, 0.06) 0%, transparent 40%),
+        repeating-linear-gradient(45deg, rgba(200, 160, 120, 0.05) 0px, rgba(200, 160, 120, 0.05) 2px, transparent 2px, transparent 8px);
+      position: relative; animation: bgPulse 12s infinite alternate;
+    }
+    body::after {
+      content: ""; position: fixed; inset: 0;
+      background-image: repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(180, 120, 70, 0.03) 20px, rgba(180, 120, 70, 0.03) 22px),
+        repeating-linear-gradient(90deg, transparent, transparent 30px, rgba(140, 90, 50, 0.02) 30px, rgba(140, 90, 50, 0.02) 32px),
+        radial-gradient(circle at 30% 40%, rgba(200, 130, 70, 0.04) 0%, transparent 25%),
+        radial-gradient(circle at 80% 70%, rgba(170, 110, 60, 0.05) 0%, transparent 30%);
+      pointer-events: none; z-index: 1;
+    }
+    @keyframes bgPulse { 0% { background-color: #f7efe2; } 100% { background-color: #efe0d0; } }
+    body::before {
+      content: ""; position: fixed; inset: 0;
+      background: url('data:image/svg+xml;utf8,<svg width="100%" height="100%" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg"><path d="M80 150 L140 80 L200 150 L140 220 Z" fill="%23b87c4d" opacity="0.08"/><path d="M900 600 L980 520 L1060 600 L980 680 Z" fill="%238b5e3c" opacity="0.06"/><circle cx="200" cy="600" r="50" fill="%23a75b3a" opacity="0.05"/><circle cx="1000" cy="200" r="80" fill="%23b78a5e" opacity="0.05"/><path d="M500 30 L530 80 L490 80 L460 30 Z" fill="%23945c3a" opacity="0.07"/><path d="M750 750 L780 800 L720 800 L690 750 Z" fill="%23c28b5c" opacity="0.07"/></svg>');
+      background-size: cover; pointer-events: none; z-index: 0; animation: slowDrift 20s infinite alternate ease-in-out;
+    }
+    @keyframes slowDrift { 0% { transform: scale(1) rotate(0deg); opacity: 0.6; } 100% { transform: scale(1.02) rotate(0.5deg); opacity: 0.8; } }
+    .test-wrapper {
+      position: relative; z-index: 3; width: 100%; max-width: 800px; background: rgba(252, 245, 235, 0.82);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-radius: 48px 24px 48px 24px;
+      box-shadow: 0 20px 40px rgba(80, 40, 20, 0.2), 0 6px 12px rgba(0,0,0,0.1), inset 0 2px 4px rgba(255,245,220,0.8);
+      border: 2px solid #dbbc9b; border-top-color: #ecd5b0; border-left-color: #e7c9a8; padding: 28px 24px 32px;
+      transition: all 0.2s; animation: floatIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes floatIn { 0% { opacity: 0; transform: translateY(30px) scale(0.96); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+    h1 {
+      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', sans-serif; font-weight: 700; font-size: 2.4rem;
+      letter-spacing: 4px; color: #4d2e1b; text-shadow: 4px 4px 0 #e7cbb0; margin: 0 0 8px 0; line-height: 1.2;
+      display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; animation: titleGlow 3s infinite alternate;
+    }
+    @keyframes titleGlow { 0% { text-shadow: 4px 4px 0 #e7cbb0; } 100% { text-shadow: 6px 6px 0 #dbb594, 0 0 10px #f0d5b0; } }
+    h1 small { font-size: 1rem; letter-spacing: 2px; color: #7b583b; text-shadow: 2px 2px 0 #ecd9c2; font-weight: 400; margin-left: 4px; }
+    .subhead { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 3px dashed #b4875f; padding-bottom: 12px; }
+    .subhead span { font-size: 1rem; color: #5d3f28; background: #e9d6c0; padding: 4px 14px; border-radius: 40px; font-weight: 500; border: 1px solid #b28b66; transition: all 0.3s; }
+    .subhead span.clickable { cursor: pointer; }
+    .subhead span.clickable:hover { background: #dbbc9b; transform: scale(1.05); }
+    .music-toggle {
+      position: absolute; top: 20px; right: 20px; z-index: 10; background: #dbbc9b; border: 2px solid #7b583b;
+      border-radius: 40px; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; line-height: 1; cursor: pointer; box-shadow: 0 4px 0 #7a5a40; transition: transform 0.15s, box-shadow 0.15s;
+      color: #2d1c0c; backdrop-filter: blur(4px); animation: softBounce 2.5s infinite; padding: 0; user-select: none;
+    }
+    @keyframes softBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
+    .music-toggle:active { transform: translateY(1px); box-shadow: 0 3px 0 #7a5a40; animation: none; }
+    .music-toggle.playing { background: #b3582a; color: #f9e7d2; animation: softBounce 2.5s infinite, gentlePulse 2s infinite; }
+    @keyframes gentlePulse { 0% { box-shadow: 0 4px 0 #7a5a40, 0 0 0 0 rgba(179, 88, 42, 0.3); } 70% { box-shadow: 0 4px 0 #7a5a40, 0 0 0 8px rgba(179, 88, 42, 0); } 100% { box-shadow: 0 4px 0 #7a5a40, 0 0 0 0 rgba(179, 88, 42, 0); } }
+    .welcome-section { display: block; animation: fadeUp 0.6s ease-out; }
+    @keyframes fadeUp { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+    .start-btn {
+      background: #b3582a; border: 2px solid #4d2e1b; color: #fef0e0; padding: 18px 24px; font-size: 1.8rem;
+      font-weight: bold; border-radius: 60px 16px 60px 16px; box-shadow: 0 8px 0 #5a3f2a, 0 4px 12px rgba(0,0,0,0.15);
+      cursor: pointer; text-align: center; margin: 24px 0 20px; transition: all 0.15s; letter-spacing: 6px; width: 100%;
+    }
+    .start-btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 11px 0 #5a3f2a, 0 8px 20px rgba(0,0,0,0.2); background: #c46a3a; }
+    .toggle-gallery-btn {
+      background: #dbbc9b; border: 2px solid #7b583b; color: #2d1c0c; padding: 12px 20px; font-size: 1.3rem;
+      font-weight: bold; border-radius: 40px 8px 40px 8px; box-shadow: 0 5px 0 #7a5a40; cursor: pointer; text-align: center;
+      margin: 10px 0 5px; transition: 0.2s; letter-spacing: 2px; width: fit-content;
+    }
+    .toggle-gallery-btn:hover { transform: translateY(-2px) scale(1.03); box-shadow: 0 7px 0 #7a5a40; background: #e7cfb5; }
+
+    .persona-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 12px 10px; margin: 16px 0 8px; padding: 8px 6px;
+      max-height: 0; opacity: 0; overflow: hidden;
+      transition: max-height 0.5s ease, opacity 0.4s ease, margin 0.3s;
+    }
+    .persona-grid.show { max-height: 900px; opacity: 1; margin: 20px 0 12px; }
+    .persona-card {
+      background: #ecd9c2; border: 2px solid #a77b58; border-radius: 24px 6px 24px 6px;
+      padding: 10px 6px; text-align: center; font-weight: 600; color: #2d1c0c;
+      box-shadow: 0 4px 0 #7c5d44; transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1);
+      cursor: pointer; backdrop-filter: blur(2px); font-size: 0.95rem;
+    }
+    .persona-card:hover {
+      transform: scale(1.05) translateY(-4px);
+      box-shadow: 0 6px 0 #7c5d44, 0 6px 14px rgba(80,40,20,0.25);
+      background: #f3e2d0; border-color: #8f613f; z-index: 3;
+    }
+    .persona-card .en { font-size: 0.7rem; opacity: 0.8; }
+
+    .hidden { display: none !important; }
+    .progress-area { margin-bottom: 28px; }
+    .progress-text { display: flex; justify-content: space-between; font-size: 0.9rem; font-weight: 600; color: #5a3e28; margin-bottom: 6px; }
+    .progress-track { height: 14px; background: #dccbb8; border-radius: 30px; border: 1.5px solid #a77b58; overflow: hidden; box-shadow: inset 0 2px 4px #b49476; }
+    .progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #b3582a, #d18e5c, #b3582a); border-radius: 30px; transition: width 0.25s; }
+    .q-num { display: inline-block; background: #7b4f2e; color: #f9e7d2; padding: 6px 18px; border-radius: 40px; font-size: 1rem; margin-bottom: 18px; }
+    .q-text { font-size: 1.5rem; font-weight: 700; color: #2d1d0f; margin-bottom: 28px; }
+    .options-container { display: flex; flex-direction: column; gap: 14px; }
+    .option-btn {
+      background: #f6ede1; border: 2px solid #ab7c58; border-radius: 50px 16px; padding: 16px 20px;
+      font-size: 1.1rem; font-weight: 500; color: #3f2a19; box-shadow: 0 5px 0 #7c5d44;
+      cursor: pointer; transition: 0.15s; display: flex; align-items: center; gap: 12px;
+    }
+    .option-btn:hover { background: #ffe7d4; border-color: #8f613f; transform: translateY(-3px) scale(1.01); box-shadow: 0 8px 0 #7c5d44; }
+    .option-btn.selected { background: #cdaa87; border-color: #4d311b; transform: translateY(3px); font-weight: 700; }
+    .nav-buttons { display: flex; gap: 16px; margin-top: 24px; }
+    .btn { background: #dbbc9b; border: 2px solid #7b583b; padding: 14px 24px; font-size: 1.2rem; font-weight: bold; border-radius: 60px 16px; box-shadow: 0 5px 0 #7a5a40; cursor: pointer; flex: 1; transition: 0.1s; }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 7px 0 #7a5a40; background: #e7cfb5; }
+    .btn:disabled { opacity: 0.4; pointer-events: none; }
+
+    .result-panel { background: #f7efe2; border-radius: 40px 12px 40px 12px; padding: 32px 24px 28px; margin-top: 20px; border: 4px double #ac7d58; box-shadow: 12px 12px 0 #9e7353, inset 0 0 0 3px #f2e0ce; position: relative; overflow: hidden; }
+    .result-panel::before { content: "✦ ✦ ✦"; position: absolute; top: 8px; left: 50%; transform: translateX(-50%); font-size: 1.5rem; color: #b4875f; letter-spacing: 12px; opacity: 0.7; }
+    .result-panel::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, transparent, transparent 8px, rgba(180, 130, 90, 0.02) 8px, rgba(180, 130, 90, 0.02) 10px); pointer-events: none; }
+    .persona-badge { display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px 16px; margin-bottom: 20px; justify-content: center; position: relative; z-index: 1; }
+    .persona-name { font-size: 3rem; font-weight: 900; color: #2f1a09; text-shadow: 3px 3px 0 #dbb594, 0 0 8px #f0d5b0; letter-spacing: 4px; }
+    .persona-en { font-size: 1.3rem; background: #946b48; padding: 6px 18px; border-radius: 40px; color: #f1ddcc; letter-spacing: 2px; border: 1px solid #eec9ae; box-shadow: 0 2px 0 #5a3f2a; }
+    .persona-desc { font-size: 1.25rem; background: rgba(249, 233, 212, 0.8); padding: 22px 20px; border-radius: 24px 6px 24px 6px; border-left: 8px solid #b1572a; margin: 20px 0 20px; line-height: 1.6; position: relative; z-index: 1; }
+    .stats-card { background: rgba(239, 225, 208, 0.7); border: 2px dashed #b4875f; border-radius: 20px 4px 20px 4px; padding: 18px 18px 14px; margin: 16px 0 20px; position: relative; z-index: 1; backdrop-filter: blur(4px); }
+    .stats-highlight { text-align: center; font-size: 1.1rem; font-weight: 700; color: #4d2e1b; margin-bottom: 12px; }
+    .stats-highlight span { background: #b3582a; color: #fef3e2; padding: 2px 12px; border-radius: 20px; margin: 0 4px; font-size: 1.3rem; }
+    .stats-bars { display: flex; flex-direction: column; gap: 5px; }
+    .stats-row { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: #4d2e1b; }
+    .stats-row .bar-label { width: 80px; text-align: right; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .stats-row .bar-track { flex: 1; height: 14px; background: #dccbb8; border-radius: 10px; overflow: hidden; }
+    .stats-row .bar-fill { height: 100%; background: linear-gradient(90deg, #b3582a, #d18e5c); border-radius: 10px; transition: width 0.4s; }
+    .stats-row .bar-count { width: 28px; text-align: left; font-weight: 700; }
+    .restart-btn, .home-btn, .portrait-btn {
+      width: 100%; background: #af7d58; color: #fef3e2; border: 2px solid #603f28; padding: 16px; font-size: 1.4rem;
+      border-radius: 40px 8px; font-weight: bold; box-shadow: 0 6px 0 #563e2c; cursor: pointer; margin-bottom: 12px;
+      position: relative; z-index: 1; transition: all 0.1s; text-align: center;
+    }
+    .restart-btn:hover, .home-btn:hover, .portrait-btn:hover { transform: translateY(-3px); box-shadow: 0 9px 0 #563e2c; background: #c18d67; }
+    .home-btn { background: #b28b6b; border-color: #5a3f2a; }
+    .portrait-btn { background: #8b5e3c; border-color: #5a3f2a; }
+    .credit-note { margin-top: 20px; font-size: 1rem; color: #5b3f2a; text-align: right; border-top: 1px dashed #b4875f; padding-top: 16px; position: relative; z-index: 1; }
+
+    .photo-section { background: #efe1d0; border-radius: 40px 12px; padding: 26px 18px; margin-top: 20px; border: 3px double #ac7d58; box-shadow: inset 0 0 0 3px #f2e0ce, 10px 10px 0 #9e7353; }
+    .photo-upload-area { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+    .photo-upload-area input[type="file"] { padding: 8px; background: #f6ede1; border: 2px solid #ab7c58; border-radius: 20px; }
+    .photo-upload-area input[type="text"] { padding: 10px; border: 2px solid #ab7c58; border-radius: 20px; background: #fdf8f0; font-size: 1rem; }
+    .upload-btn { background: #b3582a; border: 2px solid #4d2e1b; color: #fef0e0; padding: 12px; border-radius: 30px; font-weight: bold; cursor: pointer; }
+    .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; }
+    .photo-item { background: #f3e2d0; border: 1px solid #b28b66; border-radius: 16px; overflow: hidden; text-align: center; padding: 10px; }
+    .photo-item img { width: 100%; height: 120px; object-fit: cover; border-radius: 8px; }
+    .photo-caption { font-size: 0.9rem; color: #4d2e1b; margin-top: 6px; word-break: break-word; }
+    .sticker-hint { font-size: 0.95rem; color: #7b4a24; background: #f9e7d2; border: 1px dashed #b3582a; border-radius: 20px; padding: 8px 18px; text-align: center; margin-bottom: 20px; }
+    .welcome-section::before { content: "✧ ۞ ✧"; display: block; text-align: center; font-size: 1.8rem; color: #b28b66; opacity: 0.6; margin-bottom: 10px; animation: twinkle 3s infinite; }
+    @keyframes twinkle { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.8; } }
+
+    /* 模态框动画优化 */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(60, 30, 10, 0.7); z-index: 100;
+      display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px);
+      opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+    }
+    .modal-overlay.show {
+      opacity: 1; pointer-events: auto;
+    }
+    .modal-content {
+      background: #fdf8f0; border-radius: 48px 16px 48px 16px; padding: 30px 24px 28px;
+      max-width: 420px; width: 90%; max-height: 80vh; overflow-y: auto;
+      border: 4px double #ac7d58; box-shadow: 16px 16px 0 #9e7353;
+      text-align: center; position: relative;
+      transform: scale(0.8); transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .modal-overlay.show .modal-content {
+      transform: scale(1);
+    }
+    .modal-content img { width: 100%; max-width: 250px; border-radius: 20px; border: 3px solid #b28b66; margin-bottom: 18px; }
+    .modal-name { font-size: 2.2rem; font-weight: 900; color: #2f1a09; margin-bottom: 4px; }
+    .modal-en { font-size: 1rem; background: #946b48; display: inline-block; padding: 4px 16px; border-radius: 20px; color: #f1ddcc; margin-bottom: 18px; }
+    .modal-desc { font-size: 1.1rem; color: #3f2a19; line-height: 1.6; margin-bottom: 20px; }
+    .modal-close { position: absolute; top: 12px; right: 18px; background: none; border: none; font-size: 2rem; cursor: pointer; color: #7b583b; line-height: 1; }
+  </style>
+</head>
+<body>
+<div class="test-wrapper">
+  <div class="music-toggle" id="musicToggle" title="播放/暂停 西域小调">🎵</div>
+  <audio id="bgMusic" loop preload="auto" style="display:none;">
+    <source src="./music/kashgar_sama.mp3" type="audio/mpeg">
+    您的浏览器不支持音频播放。
+  </audio>
+
+  <h1>旷野手帖<small>下乡·田野考察人格</small></h1>
+  <div class="subhead">
+    <span id="photoWallEntryBtn" class="clickable" title="📸 发表评论可以领取贴纸哦！">🏜️ 拼贴新疆 · 照片墙</span>
+    <span id="wenTingTag">📜 雯婷手记</span>
+  </div>
+
+  <div id="welcomeSection" class="welcome-section">
+    <button class="start-btn" id="startTestBtn">🌾 开始测试 🌾</button>
+    <button class="toggle-gallery-btn" id="toggleGalleryBtn">📖 查看人格图鉴 ▼</button>
+    <div class="persona-grid" id="personaGrid"></div>
+    <div class="footer-note" style="text-align:center; margin-top:20px;">✨ 点击卡片可查看人格画像 ✨</div>
+  </div>
+
+  <div id="photoSection" class="photo-section hidden">
+    <h2 style="margin-bottom:16px; color:#4d2e1b;">📸 拼贴新疆 · 旅人照片墙</h2>
+    <div class="sticker-hint">💬 发表评论可以领取专属贴纸！</div>
+    <div class="photo-upload-area">
+      <input type="file" id="photoFile" accept="image/*">
+      <input type="text" id="photoComment" placeholder="写下你的照片故事或地点...">
+      <button class="upload-btn" id="uploadPhotoBtn">上传照片</button>
+    </div>
+    <div class="photo-grid" id="photoGrid"></div>
+    <button class="btn" id="closePhotoBtn" style="margin-top:20px;">← 返回主页</button>
+  </div>
+
+  <div id="quizSection" class="hidden">
+    <div class="progress-area">
+      <div class="progress-text"><span id="progressLabel">第1/16题</span><span id="progressPercent">6%</span></div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:6.25%"></div></div>
+    </div>
+    <div id="questionDisplay" class="question-card"></div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" id="prevBtn" disabled>◀ 上一题</button>
+      <button class="btn" id="nextBtn">下一题 ▶</button>
+    </div>
+    <button class="btn reset-btn" id="resetToWelcomeBtn" style="margin-top:12px;">🔄 返回图鉴</button>
+  </div>
+
+  <div id="resultSection" class="result-panel hidden">
+    <div class="persona-badge">
+      <span class="persona-name" id="personaName">卷王</span>
+      <span class="persona-en" id="personaEn">MUSE</span>
+    </div>
+    <div class="persona-desc" id="personaDesc"></div>
+    <div class="stats-card" id="statsCard">
+      <div class="stats-highlight" id="statsHighlight"></div>
+      <div class="stats-bars" id="statsBars"></div>
+    </div>
+    <button class="portrait-btn" id="viewPortraitBtn">🎨 查看人格画像</button>
+    <button class="restart-btn" id="restartFromResult">🌿 再测一次 · 启程</button>
+    <button class="home-btn" id="backToHomeFromResult">🏠 返回主页 · 查看图鉴</button>
+    <div class="credit-note">
+      <strong>制作人：雯婷</strong><br>
+      “保存测试截图 寻找丁丁解锁隐藏彩蛋” 🐫
+    </div>
+  </div>
+
+  <!-- 人格画像模态框 -->
+  <div id="personaModal" class="modal-overlay">
+    <div class="modal-content">
+      <button class="modal-close" id="modalCloseBtn">&times;</button>
+      <img id="modalImage" src="" alt="人格画像">
+      <div class="modal-name" id="modalName"></div>
+      <div class="modal-en" id="modalEn"></div>
+      <div class="modal-desc" id="modalDesc"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function(){
+    "use strict";
+    let audioCtx = null;
+    function initAudioCtx() { if (!audioCtx) try { audioCtx = new (window.AudioContext || window.webkitAudioContext()); } catch(e) {} }
+    function playClickSound() {
+      if (!audioCtx) { initAudioCtx(); if (!audioCtx) return; }
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      const now = audioCtx.currentTime;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'sine'; osc.frequency.value = 880;
+      gain.gain.setValueAtTime(0.12, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+      osc.connect(gain).connect(audioCtx.destination);
+      osc.start(now); osc.stop(now + 0.08);
+    }
+
+    const PERSONALITIES = [
+      { name:"卷王", en:"MUSE", desc:"逛博物馆永远最认真，别人随便打卡走马观花，自己会仔细看展、研究文物历史。", image:"./images/MUSE.png" },
+      { name:"出片者", en:"OOTD", desc:"出门旅行很注重穿搭造型，审美在线超会搭配。走到哪拍到哪，超会找角度抓氛围。", image:"./images/OOTD.png" },
+      { name:"美食家", en:"FOOD-ie", desc:"实打实的吃货选手，旅行第一目标就是吃遍当地特色。热衷于挖掘街边小店。", image:"./images/FOOD-ie.png" },
+      { name:"领导者", en:"LEAD-er", desc:"团队里的主心骨，负责规划路线、安排行程、协调所有人。遇事冷静靠谱。", image:"./images/LEAD-er.png" },
+      { name:"特种兵", en:"SPEC", desc:"体力超强的暴走选手，节奏快、耐力足。一天能打卡超多地方。", image:"./images/SPEC.png" },
+      { name:"哈密瓜羚羊", en:"CLIM-ber", desc:"90°是墙，89°就是坡。看到坡就想往上爬，陡坡峭壁都拦不住一颗攀爬的心。", image:"./images/CLIM-ber.png" },
+      { name:"摄影师", en:"PICS", desc:"随身自带拍照buff，手机相机不离手。擅长记录沿途风景、人文瞬间。", image:"./images/PICS.png" },
+      { name:"路边社牛", en:"SOCI", desc:"天生外向自来熟，在路边、市集、古城里都能随意和陌生人搭话唠嗑。", image:"./images/SOCI.png" },
+      { name:"丁丁酒鬼", en:"DRUN", desc:"白天认真赶路游玩，晚上喜欢小酌放松。偏爱微醺氛围。", image:"./images/DRUN.png" },
+      { name:"哆啦A梦", en:"DORA", desc:"行走的万能百宝袋，背包里塞满各种实用小物件。贴心又万能。", image:"./images/DORA.png" },
+      { name:"盖章收集控", en:"STAM", desc:"重度集章爱好者，走到一座城就必找各处印章，用专属仪式感收藏旅途回忆。", image:"./images/STAM.png" },
+      { name:"买买提人格", en:"BUY-er", desc:"超爱逛市集和小店，看到特色文创、手作、特产就忍不住入手。", image:"./images/BUY-er.png" },
+      { name:"毛茸茸的人", en:"WOLF", desc:"白天温柔软糯，夜晚逻辑与演技悄然上线，反差最大的可爱狼队友。", image:"./images/WOLF.png" },
+      { name:"路痴者", en:"LOST", desc:"天生方向感为零，分不清东南西北，乖乖跟着大部队走。", image:"./images/LOST.png" },
+      { name:"我都OK", en:"OKAY", desc:"脾气超好超好说话，随和又百搭，没有特殊要求。", image:"./images/OKAY.png" },
+      { name:"吟游诗人", en:"POET", desc:"自带浪漫文艺气质，心思细腻敏感，把旅途的风景都赋予温柔诗意。", image:"./images/POET.png" }
+    ];
+
+    const KEY_MAP = { "MUSE":0, "OOTD":1, "FOOD-ie":2, "LEAD-er":3, "SPEC":4, "CLIM-ber":5, "PICS":6, "SOCI":7, "DRUN":8, "DORA":9, "STAM":10, "BUY-er":11, "WOLF":12, "LOST":13, "OKAY":14, "POET":15 };
+
+    const QUESTIONS = [
+      { text: "到达博物馆/文物遗址，你会？", options: [
+          { text: "仔细研读每一件展品，记录细节、了解背后历史", trait: "MUSE" },
+          { text: "重点拍照记录，捕捉展品与遗址的细节美感", trait: "PICS" },
+          { text: "遇到坡就想爬上去看看高处风景", trait: "CLIM-ber" },
+          { text: "快速浏览重点文物，高效打卡", trait: "SPEC" }
+      ]},
+      { text: "团队规划考察路线时，你会？", options: [
+          { text: "主动牵头，查攻略、定路线、统筹全局", trait: "LEAD-er" },
+          { text: "随和听从，大家定什么路线我都OK", trait: "OKAY" },
+          { text: "分不清方向，不认路，全程跟队友走就行", trait: "LOST" },
+          { text: "主动询问当地人推荐的小众路线", trait: "SOCI" }
+      ]},
+      { text: "考察途中遇到好看的风景，你会？", options: [
+          { text: "整理穿搭，拍氛围感照片", trait: "OOTD" },
+          { text: "停下脚步静静感受，心生感慨", trait: "POET" },
+          { text: "快速打卡，不耽误行程", trait: "SPEC" },
+          { text: "记录地貌与光影，作为田野素材", trait: "PICS" }
+      ]},
+      { text: "路过当地市集，你的第一反应是？", options: [
+          { text: "直奔小吃摊，烤包子手抓饭", trait: "FOOD-ie" },
+          { text: "逛遍摊位，挑选文创手作和实用小物件", trait: "BUY-er" },
+          { text: "在酒馆与本地人搭讪，打听民俗并微醺一下", trait: "DRUN" },
+          { text: "走马观花，随便逛逛没有明确目的", trait: "OKAY" }
+      ]},
+      { text: "你的背包里，一定会常备什么？", options: [
+          { text: "应急小物件、补给品", trait: "DORA" },
+          { text: "集章本和笔", trait: "STAM" },
+          { text: "小酒/饮品", trait: "DRUN" },
+          { text: "相机/备用镜头", trait: "PICS" }
+      ]},
+      { text: "考察当天行程很紧凑，你会？", options: [
+          { text: "紧跟节奏，体力拉满", trait: "SPEC" },
+          { text: "即使时间紧，也忍不住绕路去攀爬附近的高坡", trait: "CLIM-ber" },
+          { text: "无所谓，跟着队伍走", trait: "OKAY" },
+          { text: "主动协调节奏，确保精华", trait: "LEAD-er" }
+      ]},
+      { text: "团队中有人迷路/遇到小麻烦，你会？", options: [
+          { text: "冷静牵头解决问题", trait: "LEAD-er" },
+          { text: "拿出应急物品帮忙", trait: "DORA" },
+          { text: "温柔安抚，默默陪伴", trait: "WOLF" },
+          { text: "什么都不做，默默观察", trait: "OKAY" }
+      ]},
+      { text: "晚上在住宿地/绿皮火车上，你喜欢？", options: [
+          { text: "小酌一杯，微醺聊天", trait: "DRUN" },
+          { text: "组织狼人杀", trait: "WOLF" },
+          { text: "安安静静休息，回味白天爬坡的快乐", trait: "CLIM-ber" },
+          { text: "整理笔记资料", trait: "MUSE" }
+      ]},
+      { text: "考察时需要记录素材，你会？", options: [
+          { text: "用相机抓拍", trait: "PICS" },
+          { text: "认真记录文字", trait: "MUSE" },
+          { text: "写随笔、感慨", trait: "POET" },
+          { text: "在集章本盖章", trait: "STAM" }
+      ]},
+      { text: "遇到不熟悉的本地习俗，你会？", options: [
+          { text: "主动请教本地人", trait: "SOCI" },
+          { text: "买一些当地特色的纪念品，间接感受习俗", trait: "BUY-er" },
+          { text: "不主动了解，尊重即可", trait: "OKAY" },
+          { text: "查阅资料或问向导", trait: "MUSE" }
+      ]},
+      { text: "团队意见不一致时，你会？", options: [
+          { text: "协调各方，拿出方案", trait: "LEAD-er" },
+          { text: "不站队，怎么都行", trait: "OKAY" },
+          { text: "倾听调和，不争执", trait: "WOLF" },
+          { text: "提议先爬个坡冷静一下", trait: "CLIM-ber" }
+      ]},
+      { text: "考察间隙休息，你会？", options: [
+          { text: "找个小坡登高望远，放松身心", trait: "CLIM-ber" },
+          { text: "整理穿搭补妆", trait: "OOTD" },
+          { text: "整理集章本", trait: "STAM" },
+          { text: "分享零食复盘狼人杀", trait: "WOLF" }
+      ]},
+      { text: "对于“打卡式”环节，你态度是？", options: [
+          { text: "快速完成，专注核心", trait: "SPEC" },
+          { text: "认真打卡，仪式感", trait: "OOTD" },
+          { text: "不刻意打卡，感受当下", trait: "POET" },
+          { text: "集章打卡必须的", trait: "STAM" }
+      ]},
+      { text: "带队友去考察点，你会？", options: [
+          { text: "提前查攻略全程带队", trait: "LEAD-er" },
+          { text: "让别人带路，跟着走", trait: "LOST" },
+          { text: "问本地人唠嗑解锁路线", trait: "SOCI" },
+          { text: "导航最短路径高效抵达", trait: "SPEC" }
+      ]},
+      { text: "考察结束后，最想保留什么纪念？", options: [
+          { text: "集满章的纪念册", trait: "STAM" },
+          { text: "整理好的照片合集", trait: "PICS" },
+          { text: "买的特产和文创", trait: "BUY-er" },
+          { text: "不留实体纪念物，默默记在心中", trait: "POET" }
+      ]},
+      { text: "田野考察的核心意义是？", options: [
+          { text: "深入了解历史与人文，收获知识", trait: "MUSE" },
+          { text: "感受山河浪漫，体验风土人情", trait: "POET" },
+          { text: "高效完成考察任务，不留遗憾", trait: "SPEC" },
+          { text: "用影像和记录保存文化自然", trait: "PICS" }
+      ]}
+    ];
+
+    const welcome = document.getElementById('welcomeSection');
+    const quizSection = document.getElementById('quizSection');
+    const resultSection = document.getElementById('resultSection');
+    const photoSection = document.getElementById('photoSection');
+    const questionDisplay = document.getElementById('questionDisplay');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const resetToWelcomeBtn = document.getElementById('resetToWelcomeBtn');
+    const restartFromResult = document.getElementById('restartFromResult');
+    const backToHomeFromResult = document.getElementById('backToHomeFromResult');
+    const startBtn = document.getElementById('startTestBtn');
+    const photoWallEntryBtn = document.getElementById('photoWallEntryBtn');
+    const closePhotoBtn = document.getElementById('closePhotoBtn');
+    const uploadPhotoBtn = document.getElementById('uploadPhotoBtn');
+    const photoFile = document.getElementById('photoFile');
+    const photoComment = document.getElementById('photoComment');
+    const photoGrid = document.getElementById('photoGrid');
+    const progressLabel = document.getElementById('progressLabel');
+    const progressPercent = document.getElementById('progressPercent');
+    const progressFill = document.getElementById('progressFill');
+    const personaGrid = document.getElementById('personaGrid');
+    const toggleGalleryBtn = document.getElementById('toggleGalleryBtn');
+    const wenTingTag = document.getElementById('wenTingTag');
+    const bgMusic = document.getElementById('bgMusic');
+    const musicToggle = document.getElementById('musicToggle');
+    const statsHighlight = document.getElementById('statsHighlight');
+    const statsBars = document.getElementById('statsBars');
+    const viewPortraitBtn = document.getElementById('viewPortraitBtn');
+    const personaModal = document.getElementById('personaModal');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
+    const modalImage = document.getElementById('modalImage');
+    const modalName = document.getElementById('modalName');
+    const modalEn = document.getElementById('modalEn');
+    const modalDesc = document.getElementById('modalDesc');
+    let musicPlaying = false;
+    let currentIndex = 0;
+    let answers = new Array(16).fill(-1);
+    let scores = new Array(16).fill(0);
+    let galleryVisible = false;
+    let autoNextLock = false;
+    let currentResultIndex = 0;
+
+    const STATS_KEY = 'xinjiang_personality_stats';
+    function loadStats() { try { const d = JSON.parse(localStorage.getItem(STATS_KEY)); return d && Array.isArray(d) && d.length===16 ? d : new Array(16).fill(0); } catch(e) { return new Array(16).fill(0); } }
+    function saveStats(stats) { localStorage.setItem(STATS_KEY, JSON.stringify(stats)); }
+    function recordResult(personalityIndex) { const stats = loadStats(); stats[personalityIndex] = (stats[personalityIndex] || 0) + 1; saveStats(stats); }
+    function renderStats(currentIndex) {
+      const stats = loadStats();
+      const total = stats.reduce((a,b)=>a+b, 0);
+      const sameCount = stats[currentIndex] || 0;
+      const currentPersona = PERSONALITIES[currentIndex];
+      statsHighlight.innerHTML = total === 0 ? '🌱 你是第一位踏上这条丝路的旅人！' : `🐫 已有 <span>${total}</span> 位旅人完成测试，其中 <span>${sameCount}</span> 位和你一样是 <span>${currentPersona.name}</span>`;
+      if (total === 0) { statsBars.innerHTML = ''; return; }
+      const maxCount = Math.max(...stats, 1);
+      let barsHtml = '';
+      stats.forEach((count, idx) => {
+        const pct = Math.round((count / total) * 100);
+        const widthPct = Math.round((count / maxCount) * 100);
+        barsHtml += `<div class="stats-row"><span class="bar-label">${PERSONALITIES[idx].name}</span><span class="bar-track"><span class="bar-fill" style="width:${widthPct}%;${idx===currentIndex?'background:linear-gradient(90deg,#8b3a1a,#c46a3a);':''}"></span></span><span class="bar-count">${pct}%</span></div>`;
+      });
+      statsBars.innerHTML = barsHtml;
+    }
+
+    const STORAGE_KEY = 'xinjiang_field_photos';
+    function loadPhotos() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch(e) { return []; } }
+    function savePhotos(photos) { localStorage.setItem(STORAGE_KEY, JSON.stringify(photos)); }
+    function renderPhotoWall() {
+      const photos = loadPhotos();
+      photoGrid.innerHTML = '';
+      photos.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'photo-item';
+        div.innerHTML = `<img src="${item.data}" alt="照片"><div class="photo-caption">${item.comment || ''}</div>`;
+        photoGrid.appendChild(div);
+      });
+    }
+    uploadPhotoBtn.addEventListener('click', () => {
+      const file = photoFile.files[0];
+      if (!file) { alert('请选择一张照片'); return; }
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const photos = loadPhotos();
+        if (photos.length >= 100) { alert('照片墙已满，最多可上传100张照片'); return; }
+        photos.push({ data: e.target.result, comment: photoComment.value.trim() });
+        savePhotos(photos);
+        renderPhotoWall();
+        photoFile.value = '';
+        photoComment.value = '';
+      };
+      reader.readAsDataURL(file);
+    });
+    function openPhotoWall() {
+      welcome.classList.add('hidden'); quizSection.classList.add('hidden'); resultSection.classList.add('hidden');
+      photoSection.classList.remove('hidden');
+      renderPhotoWall();
+    }
+    photoWallEntryBtn.addEventListener('click', openPhotoWall);
+    closePhotoBtn.addEventListener('click', () => { photoSection.classList.add('hidden'); welcome.classList.remove('hidden'); });
+
+    // 弹窗控制函数
+    function showPersonaDetail(index) {
+      const p = PERSONALITIES[index];
+      modalImage.src = p.image || '';
+      modalImage.alt = p.name;
+      modalName.innerText = p.name;
+      modalEn.innerText = p.en;
+      modalDesc.innerText = p.desc;
+      personaModal.classList.add('show');
+      playClickSound();
+    }
+    function hidePersonaDetail() {
+      personaModal.classList.remove('show');
+      playClickSound();
+    }
+    modalCloseBtn.addEventListener('click', hidePersonaDetail);
+    personaModal.addEventListener('click', (e) => { if(e.target === personaModal) hidePersonaDetail(); });
+
+    function renderGallery() {
+      let html = '';
+      PERSONALITIES.forEach((p, idx) => {
+        html += `<div class="persona-card" data-index="${idx}" title="点击查看画像"><span class="zh">${p.name}</span><br><span class="en">${p.en}</span></div>`;
+      });
+      personaGrid.innerHTML = html;
+      document.querySelectorAll('.persona-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const index = parseInt(card.dataset.index);
+          showPersonaDetail(index);
+        });
+      });
+    }
+    renderGallery();
+    toggleGalleryBtn.addEventListener('click', () => {
+      galleryVisible = !galleryVisible;
+      if (galleryVisible) { personaGrid.classList.add('show'); toggleGalleryBtn.innerHTML = '📖 收起图鉴 ▲'; }
+      else { personaGrid.classList.remove('show'); toggleGalleryBtn.innerHTML = '📖 查看人格图鉴 ▼'; }
+    });
+
+    function playMusic() { bgMusic.play().then(() => { musicPlaying = true; musicToggle.innerHTML = '🔊'; musicToggle.classList.add('playing'); }).catch(e => {}); }
+    function pauseMusic() { bgMusic.pause(); musicPlaying = false; musicToggle.innerHTML = '🎵'; musicToggle.classList.remove('playing'); }
+    musicToggle.addEventListener('click', () => { if (musicPlaying) pauseMusic(); else playMusic(); });
+    bgMusic.addEventListener('play', () => { musicToggle.innerHTML = '🔊'; musicToggle.classList.add('playing'); musicPlaying = true; });
+    bgMusic.addEventListener('pause', () => { musicToggle.innerHTML = '🎵'; musicToggle.classList.remove('playing'); musicPlaying = false; });
+
+    function renderQuestion() {
+      const q = QUESTIONS[currentIndex];
+      const selected = answers[currentIndex];
+      let html = `<div class="q-num">🏺 第${currentIndex+1}题 · 田野手记</div><div class="q-text">${q.text}</div><div class="options-container">`;
+      q.options.forEach((opt, idx) => {
+        html += `<div class="option-btn ${selected===idx?'selected':''}" data-opt="${idx}"><span class="option-prefix">${String.fromCharCode(65+idx)}</span>${opt.text}</div>`;
+      });
+      html += `</div>`;
+      questionDisplay.innerHTML = html;
+      document.querySelectorAll('.option-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          playClickSound();
+          const idx = parseInt(btn.dataset.opt);
+          answers[currentIndex] = idx;
+          renderQuestion();
+          updateProgress();
+          if (currentIndex < 15 && !autoNextLock) {
+            autoNextLock = true;
+            setTimeout(() => { if (answers[currentIndex] !== -1 && currentIndex < 15) { currentIndex++; renderQuestion(); } autoNextLock = false; }, 200);
+          }
+        });
+      });
+      updateProgress();
+    }
+    function updateProgress() {
+      const answered = answers.filter(a=>a!==-1).length;
+      progressLabel.innerText = `第${currentIndex+1}/16题`;
+      progressPercent.innerText = `${Math.round((answered/16)*100)}%`;
+      progressFill.style.width = `${Math.round((answered/16)*100)}%`;
+      prevBtn.disabled = (currentIndex === 0);
+      nextBtn.innerText = (currentIndex === 15) ? (answers.every(a=>a!==-1) ? '📜 查看结果' : '✓ 完成并查看') : '下一题 ▶';
+    }
+    function calculateResult() {
+      scores.fill(0);
+      for(let i=0; i<16; i++) { if(answers[i]!==-1) scores[KEY_MAP[QUESTIONS[i].options[answers[i]].trait]]++; }
+      let maxIdx = 0; scores.forEach((v,i)=>{ if(v>scores[maxIdx]) maxIdx=i; });
+      currentResultIndex = maxIdx;
+      const p = PERSONALITIES[maxIdx];
+      document.getElementById('personaName').innerText = p.name;
+      document.getElementById('personaEn').innerText = p.en;
+      document.getElementById('personaDesc').innerText = p.desc;
+      recordResult(maxIdx);
+      renderStats(maxIdx);
+      quizSection.classList.add('hidden');
+      resultSection.classList.remove('hidden');
+      if (wenTingTag) wenTingTag.style.display = 'inline-block';
+    }
+    function resetToWelcome() {
+      currentIndex = 0; answers.fill(-1);
+      welcome.classList.remove('hidden'); quizSection.classList.add('hidden'); resultSection.classList.add('hidden'); photoSection.classList.add('hidden');
+      if (wenTingTag) wenTingTag.style.display = 'inline-block';
+    }
+    function startQuiz() {
+      playClickSound();
+      if (bgMusic && bgMusic.paused) bgMusic.play().catch(e => {});
+      currentIndex = 0; answers.fill(-1);
+      welcome.classList.add('hidden'); quizSection.classList.remove('hidden'); resultSection.classList.add('hidden'); photoSection.classList.add('hidden');
+      if (wenTingTag) wenTingTag.style.display = 'none';
+      renderQuestion();
+    }
+    startBtn.addEventListener('click', startQuiz);
+    resetToWelcomeBtn.addEventListener('click', resetToWelcome);
+    restartFromResult.addEventListener('click', () => { resetToWelcome(); startQuiz(); });
+    backToHomeFromResult.addEventListener('click', resetToWelcome);
+    viewPortraitBtn.addEventListener('click', () => { showPersonaDetail(currentResultIndex); });
+    prevBtn.addEventListener('click', () => { if(currentIndex>0) { currentIndex--; renderQuestion(); } });
+    nextBtn.addEventListener('click', () => {
+      if(answers[currentIndex]===-1) { alert('✨ 选一个选项吧～'); return; }
+      if(currentIndex===15) { if(!answers.every(a=>a!==-1)) { alert('还有题目没完成'); return; } calculateResult(); }
+      else { currentIndex++; renderQuestion(); }
+    });
+
+    resetToWelcome();
+    renderPhotoWall();
+    function initAudioOnFirstInteraction() {
+      const handler = () => { initAudioCtx(); if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume(); document.removeEventListener('click', handler); document.removeEventListener('touchstart', handler); };
+      document.addEventListener('click', handler); document.addEventListener('touchstart', handler);
+    }
+    initAudioOnFirstInteraction();
+  })();
+</script>
+</body>
+</html>
