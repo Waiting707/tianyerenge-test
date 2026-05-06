@@ -152,15 +152,12 @@
     .welcome-section::before { content: "✧ ۞ ✧"; display: block; text-align: center; font-size: 1.8rem; color: #b28b66; opacity: 0.6; margin-bottom: 10px; animation: twinkle 3s infinite; }
     @keyframes twinkle { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.8; } }
 
-    /* 模态框动画优化 */
     .modal-overlay {
       position: fixed; inset: 0; background: rgba(60, 30, 10, 0.7); z-index: 100;
       display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px);
       opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
     }
-    .modal-overlay.show {
-      opacity: 1; pointer-events: auto;
-    }
+    .modal-overlay.show { opacity: 1; pointer-events: auto; }
     .modal-content {
       background: #fdf8f0; border-radius: 48px 16px 48px 16px; padding: 30px 24px 28px;
       max-width: 420px; width: 90%; max-height: 80vh; overflow-y: auto;
@@ -168,9 +165,7 @@
       text-align: center; position: relative;
       transform: scale(0.8); transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
-    .modal-overlay.show .modal-content {
-      transform: scale(1);
-    }
+    .modal-overlay.show .modal-content { transform: scale(1); }
     .modal-content img { width: 100%; max-width: 250px; border-radius: 20px; border: 3px solid #b28b66; margin-bottom: 18px; }
     .modal-name { font-size: 2.2rem; font-weight: 900; color: #2f1a09; margin-bottom: 4px; }
     .modal-en { font-size: 1rem; background: #946b48; display: inline-block; padding: 4px 16px; border-radius: 20px; color: #f1ddcc; margin-bottom: 18px; }
@@ -244,7 +239,6 @@
     </div>
   </div>
 
-  <!-- 人格画像模态框 -->
   <div id="personaModal" class="modal-overlay">
     <div class="modal-content">
       <button class="modal-close" id="modalCloseBtn">&times;</button>
@@ -318,18 +312,18 @@
           { text: "直奔小吃摊，烤包子手抓饭", trait: "FOOD-ie" },
           { text: "逛遍摊位，挑选文创手作和实用小物件", trait: "BUY-er" },
           { text: "在酒馆与本地人搭讪，打听民俗并微醺一下", trait: "DRUN" },
-          { text: "走马观花，随便逛逛没有明确目的", trait: "OKAY" }
+          { text: "走马观花，随便逛逛没有明确目的", trait: "LOST" }  // 原 OKAY → LOST
       ]},
       { text: "你的背包里，一定会常备什么？", options: [
           { text: "应急小物件、补给品", trait: "DORA" },
           { text: "集章本和笔", trait: "STAM" },
-          { text: "小酒/饮品", trait: "DRUN" },
+          { text: "当地美食指南/小零食", trait: "FOOD-ie" },  // 原 DRUN → FOOD-ie
           { text: "相机/备用镜头", trait: "PICS" }
       ]},
       { text: "考察当天行程很紧凑，你会？", options: [
           { text: "紧跟节奏，体力拉满", trait: "SPEC" },
           { text: "即使时间紧，也忍不住绕路去攀爬附近的高坡", trait: "CLIM-ber" },
-          { text: "无所谓，跟着队伍走", trait: "OKAY" },
+          { text: "无所谓，跟着队伍走", trait: "LOST" },  // 原 OKAY → LOST
           { text: "主动协调节奏，确保精华", trait: "LEAD-er" }
       ]},
       { text: "团队中有人迷路/遇到小麻烦，你会？", options: [
@@ -353,7 +347,7 @@
       { text: "遇到不熟悉的本地习俗，你会？", options: [
           { text: "主动请教本地人", trait: "SOCI" },
           { text: "买一些当地特色的纪念品，间接感受习俗", trait: "BUY-er" },
-          { text: "不主动了解，尊重即可", trait: "OKAY" },
+          { text: "在附近酒馆小坐，喝一杯感受氛围", trait: "DRUN" },  // 原 OKAY → DRUN
           { text: "查阅资料或问向导", trait: "MUSE" }
       ]},
       { text: "团队意见不一致时，你会？", options: [
@@ -366,7 +360,7 @@
           { text: "找个小坡登高望远，放松身心", trait: "CLIM-ber" },
           { text: "整理穿搭补妆", trait: "OOTD" },
           { text: "整理集章本", trait: "STAM" },
-          { text: "分享零食复盘狼人杀", trait: "WOLF" }
+          { text: "逛到附近小吃摊买点吃的", trait: "FOOD-ie" }  // 原 WOLF → FOOD-ie
       ]},
       { text: "对于“打卡式”环节，你态度是？", options: [
           { text: "快速完成，专注核心", trait: "SPEC" },
@@ -389,7 +383,7 @@
       { text: "田野考察的核心意义是？", options: [
           { text: "深入了解历史与人文，收获知识", trait: "MUSE" },
           { text: "感受山河浪漫，体验风土人情", trait: "POET" },
-          { text: "高效完成考察任务，不留遗憾", trait: "SPEC" },
+          { text: "做好万全准备，确保考察顺利", trait: "DORA" },  // 原 SPEC → DORA
           { text: "用影像和记录保存文化自然", trait: "PICS" }
       ]}
     ];
@@ -456,11 +450,9 @@
       });
       statsBars.innerHTML = barsHtml;
       requestAnimationFrame(() => {
-  const fills = statsBars.querySelectorAll('.bar-fill');
-  fills.forEach(fill => {
-    fill.style.width = fill.dataset.width + '%';
-  });
-});
+        const fills = statsBars.querySelectorAll('.bar-fill');
+        fills.forEach(fill => { fill.style.width = fill.dataset.width + '%'; });
+      });
     }
 
     const STORAGE_KEY = 'xinjiang_field_photos';
@@ -499,7 +491,6 @@
     photoWallEntryBtn.addEventListener('click', openPhotoWall);
     closePhotoBtn.addEventListener('click', () => { photoSection.classList.add('hidden'); welcome.classList.remove('hidden'); });
 
-    // 弹窗控制函数
     function showPersonaDetail(index) {
       const p = PERSONALITIES[index];
       modalImage.src = (p.image || '') + '?t=' + new Date().getTime();
